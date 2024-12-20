@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Shantabai - Maid and Household Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Badeen+Display&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .service-icon {
+            font-size: 3rem;
+            color: rgb(41, 240, 197);
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            border: 1px solid rgb(41, 240, 197);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: none;
+            background-color: white;
+            z-index: 1000;
+        }
+        .chatbot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chatbot-messages {
+            max-height:  200px;
+            overflow-y: auto;
+        }
+        .chatbot-input {
+            display: flex;
+            flex-direction: column;
+        }
+        .slider {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+            
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .cool-input {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .cool-input input, .cool-input textarea, .cool-input select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        .cool-input input:focus, .cool-input textarea:focus, .cool-input select:focus {
+            border-color: #4AEAC3;
+            box-shadow: 0 0 0 3px rgba(74, 234, 195, 0.3);
+        }
+        .cool-input label {
+            position: absolute;
+            top: 50%;
+            left: 0.75rem;
+            transform: translateY(-50%);
+            background: white;
+            padding: 0 0.25rem;
+            color: #102f66;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .cool-input input:focus + label, .cool-input input:not(:placeholder-shown) + label,
+        .cool-input textarea:focus + label, .cool-input textarea:not(:placeholder-shown) + label,
+        .cool-input select:focus + label, .cool-input select:not(:placeholder-shown) + label {
+            top: -0.75rem;
+            left: 0.5rem;
+            font-size: 0.75rem;
+            color: #4AEAC3;
+        }
+        .btn-custom {
+            background-color: #4AEAC3;
+            color: white;
+            transition: background-color ```html
+            0.3s, transform 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #3bb8a0;
+            transform: scale(1.05);
+        }
+        .hero {
+            background-image: url('https://static.vecteezy.com/system/resources/thumbnails/052/067/359/small/abstract-white-background-with-creased-texture-vector.jpg');
+            background-size: cover;
+            background-position: center;
+            /*color: rgba(0, 0, 0, 0.897)*/
+            position: relative;
+            padding: 4rem 0;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: /* Dark overlay */
+        }
+        .faq-card {
+            background-color: #f9fafb; /* Light gray background */
+            border: 1px solid #e5e7eb; /* Gray border */
+            border-radius: 0.375rem;
+            padding: 1rem;
+            transition: background-color 0.3s;
+        }
+        .faq-card:hover {
+            background-color: #e5e7eb; /* Darker gray on hover */
+        }
+        .highlight {
+            background-color: #4AEAC3; /* Highlight color */
+            color: white;
+            padding: 1rem;
+            border-radius: 0.375rem;
+        }
+    </style>
+</head>
+<body class="bg-white text-black">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="https://www.fontspace.com/category/modern">
+                    <img src="https://see.fontimg.com/api/rf5/x30zV/N2Q2MWU5Mjk4NjEzNGE3NmI3ZjE3MGM2ZGE3ZmIzMjkudHRm/U2hhbnRhYmFp/queensides-medium.png?r=fs&h=67&w=1000&fg=4AEAC3&bg=FFFFFF&tb=1&s=67" alt="Modern fonts" class="h-10">
+                </a>
+                <button class="block lg:hidden">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="hidden lg:flex space-x-4">
+                    <a class="hover:text-green-500" href="#services">Services</a>
+                    <a class="hover:text-green-500" href="#about">About Us</a>
+                    <a class="hover:text-green-500" href="#contact">Contact</a>
+                    <a class="hover:text-green-500" href="#booking">Booking</a>
+                    <a class="hover:text-green-500" href="#reviews">Reviews</a>
+                    <a class="hover:text-green-500" href="#service-area">Service Area</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section with Slider -->
+    <header class="hero text-centre"> <!--centre-->
+        <div class="slider">
+            <div class="slides flex items-left justify-left"> <!--centre-->
+                <div class="slide active flex items-center">
+                    <img alt="Image 1: A clean and organized living room with modern furniture and decor" class="h-20 w-20 mr-4" src="https://media.istockphoto.com/id/544714578/photo/people-with-supplies-ready-for-cleaning.jpg?s=612x612&w=0&k=20&c=G9XRjhl8t8hn6P9R5yIOwAfr6mCRpThcOuq7fjxEGvc="/>
+                    <div>
+                        <h1 class="text-4xl font-bold animate__animated animate__fadeInDown">Welcome to Shantabai</h1>
+                        <p class="text-xl mt-2 animate__animated animate__fadeInUp">Your trusted partner for maid and household services</p>
+                        <p class="text-lg mt-2 animate__animated animate__fadeInUp">Experience the best in home cleaning, laundry, and cooking services.</p>
+                        <br>
+                        <br>
+                        <button> <a href="#booking" class="btn-custom mt-4 py-2 px-4 rounded-md">Get Started</a></botton>
+                    </div>
+                </div>
+                <div class="slide flex items-center">
+                    <img alt="Image 2: A maid cleaning a kitchen countertop with cleaning supplies" class="h-16 w-16 mr-4" src="https://images.hindustantimes.com/rf/image_size_640x362/HT/p2/2016/02/21/Pictures/house-maids_944b0fea-d875-11e5-b369-6a1e536aef0c.JPG"/>
+                    <div>
+                        <h1 class="text-4xl font-bold animate__animated animate__fadeInDown">Welcome to Shantabai</h1>
+                        <p class="text-xl mt-2 animate__animated animate__fadeInUp">Your trusted partner for maid and household services</p>
+                        <p class="text-lg mt-2 animate__animated animate__fadeInUp">Experience the best in home cleaning, laundry, and cooking services.</p>
+                        <br>
+                        <a href="#booking" class="btn-custom mt-4 py-2 px-4 rounded-md">Get Started</a>
+                    </div>
+                </div>
+                <div class="slide flex items-center">
+                    <img alt="Image 3: Freshly laundered clothes neatly folded and stacked" class="h-20 w-20 mr-4" src="https://images.yourstory.com/cs/wordpress/2018/07/MyChores-Team-Picture.jpg?mode=crop&crop=faces&ar=2%3A1&format=auto&w=1080&q=75"/>
+                    <div>
+                        <h1 class="text-4xl font-bold animate__animated animate__fadeInDown">Welcome to Shantabai</h1>
+                        <p class="text-xl mt-2 animate__animated animate__fadeInUp">Your trusted partner for maid and household services</p>
+                        <p class="text-lg mt-2 animate__animated animate__fadeInUp">Experience the best in home cleaning, laundry, and cooking services.</p>
+                        <a href=#booking class="btn-custom mt-4 py-2 px-4 rounded-md">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Services Section -->
+    <section class="py-5" id="services">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                <div class="card p-4 bg-white shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <i class="fas fa-broom service-icon"></i>
+                    <h5 class="mt-3">House Cleaning</h5>
+                    <p>Professional house cleaning services to keep your home spotless.</p>
+                </div>
+                <div class="card p-4 bg-white shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <i class="fas fa-tshirt service-icon"></i>
+                    <h5 class="mt-3">Laundry Services</h5>
+                    <p>Efficient laundry services to keep your clothes fresh and clean.</p>
+                </div>
+                <div class="card p-4 bg-white shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <i class="fas fa-utensils service-icon"></i>
+                    <h5 class="mt-3">Cooking Services</h5>
+                    <p>Delicious home-cooked meals prepared by our expert cooks.</p>
+                </div>
+                <div class="card p-4 bg-white shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <i class="fas fa-user-friends service-icon"></i>
+                    <h5 class="mt-3">Elder Care</h5>
+                    <p>Compassionate care for the elderly, ensuring their comfort and safety.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Booking Section -->
+    <section class="py-5" id="booking">
+        <div class="container mx-auto px-4">
+            <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Book Our Services</h2>
+            <div class="max-w-lg mx-auto">
+                <form>
+                    <div class="cool-input">
+                        <input type="text" id="service" placeholder=" " required>
+                        <label for="service">Select Service</label>
+                    </div>
+                    <div class="cool-input">
+                        <input type="date" id="date" placeholder=" " required>
+                        <label for="date">Preferred Date</label>
+                    </div>
+                    <div class="cool-input">
+                        <input type="time" id="time" placeholder=" " required>
+                        <label for="time">Preferred Time</label>
+                    </div>
+                    <div class="cool-input">
+                        <input type="text" id="name" placeholder=" " required>
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="cool-input">
+                        <input type="email" id="email" placeholder=" " required>
+                        <label for="email">Email</label>
+                    </div>
+                    <div class="cool-input">
+ <input type="tel" id="phone" placeholder=" " required>
+                        <label for="phone">Phone</label>
+                    </div>
+                    <button class="w-full btn-custom py-2 rounded-md shadow-md" type="submit">Book Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Customer Reviews Section -->
+    <section class="py-5" id="reviews">
+        <div class="container mx-auto px-4">
+            <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Customer Reviews</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="card p-4 bg-white shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <h5>Shivam Yadav</h5>
+                    <p>"Shantabai's house cleaning service is exceptional. My home has never been this clean. Highly recommend!"</p>
+                    <div class="text-yellow-500">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="card p-4 bg-white shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <h5>Jaadu</h5>
+                    <p>"The laundry service is fantastic. My clothes are always fresh and neatly folded. Great job!"</p>
+                    <div class="text-yellow-500">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <div class="card p-4 bg-white shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <h5>Salman Khan</h5>
+                    <p>"I love the cooking service. The meals are delicious and save me so much time. Thank you, Shantabai!"</p>
+                    <div class="text-yellow-500">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Service Area Section -->
+    <section class="py-5" id="service-area">
+        <div class="container mx-auto px-4">
+            <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Service Area</h2>
+            <p class="text-center animate__animated animate__fadeInUp">We are currently providing services in the following areas:</p>
+            <ul class="list-none text-center animate__animated animate__fadeInUp">
+                <li><i class="fas fa-map-marker-alt"></i> Mira Road, Mumbai</li>
+                <li><i class="fas fa-map-marker-alt"></i> Dahisar, Mumbai</li>
+            </ul>
+            <div class="map-responsive mt-4 animate__animated animate__fadeInUp">
+                <iframe allowfullscreen="" frameborder="0" height="450" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.742073073073!2d72.8561643149031!3d19.21833098700764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b7b7b7b7b7b7%3A0x7b7b7b7b7b7b7b7b!2sMira%20Road%2C%20Mumbai%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sus!4v1634567890123!5m2!1sen!2sus" style="border:0;" width="100%"></iframe>
+            </div>
+        </div>
+    </section>
+    <!-- FAQ Section -->
+    <section class="py-5" id="faq">
+        <div class=" container mx-auto px-4">
+            <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Frequently Asked Questions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="faq-card p-4 shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <h5>What services do you offer?</h5>
+                    <p>We offer house cleaning, laundry services, cooking services, and elder care.</p>
+                </div>
+                <div class="faq-card p-4 shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <h5>How can I book a service?</h5>
+                    <p>You can book a service through our booking form available on the website.</p>
+                </div>
+                <div class="faq-card p-4 shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <h5>Are your staff trained and insured?</h5>
+                    <p>Yes, all our staff are professionally trained and insured for your peace of mind.</p>
+                </div>
+                <div class="faq-card p-4 shadow-lg rounded-lg animate__animated animate__zoomIn">
+                    <h5>What areas do you serve?</h5>
+                    <p>We currently serve Mira Road and Dahisar in Mumbai.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Safety and Security Information Section -->
+    <section class="py-5" id="safety-security">
+        <div class="container mx-auto px-4">
+            <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Safety and Security Information</h2>
+            <div class="highlight">
+                <p class="text-center">At Shantabai, your safety is our priority. Here are some measures we take:</p>
+                <ul class="list-disc list-inside mx-auto max-b-lg">
+                    <li>All staff undergo background checks before employment.</li>
+                    <li>Our team is trained in safety protocols and emergency procedures.</li>
+                    <li>We use eco-friendly and safe cleaning products.</li>
+                    <li>Insurance coverage is provided for all services.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section class="py-5" id="contact">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="animate__animated animate__fadeInLeft">
+                    <h2>Contact Us</h2>
+                    <p>If you have any questions or would like to book our services, please get in touch with us.</p>
+                    <ul class="list-none">
+                        <li><i class="fas fa-phone-alt"></i> +91000000000</li>
+                        <li><i class="fas fa-envelope"></i> info@shantabai.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 LR Campus ,mira road</li>
+                    </ul>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-blue-400 hover:text-blue-600"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-pink-500 hover:text-pink-700"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin fa-2x"></i></a>
+                    </div>
+                </div>
+                <div class="animate__animated animate__fadeInRight">
+                    <form>
+                        <div class="cool-input">
+                            <input type="text" id="contact-name" placeholder=" " required>
+                            <label for="contact-name">Name</label>
+                        </div>
+                        <div class="cool-input">
+                            <input type="email" id="contact-email" placeholder=" " required>
+                            <label for="contact-email">Email</label>
+                        </div>
+                        <div class="cool-input">
+                            <textarea id="contact-message" rows="4" placeholder=" " required></textarea>
+                            <label for="contact-message">Message</label>
+                        </div>
+                        <button class="w-full btn-custom py-2 rounded-md shadow-md" type="submit"> Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Shantabai. All rights reserved.</p>
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-blue-500"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-blue-400"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-pink-500"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-blue-600"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
